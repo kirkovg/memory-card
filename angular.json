@@ -119,6 +119,13 @@
               "devServerTarget": "memory-card:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://kirkovg.github.io/memory-card/",
+            "name": "Gjorgji Kirkov"
+          }
         }
       }
     }
