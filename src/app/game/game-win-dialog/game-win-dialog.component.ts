@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-game-win-dialog',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameWinDialogComponent implements OnInit {
 
-  constructor() { }
+  attempts: number;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   ngOnInit(): void {
+    this.attempts = this.data.attempts;
   }
 
   restartGame() {

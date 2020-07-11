@@ -1,10 +1,11 @@
 <mat-grid-list [cols]="4" rowHeight="4:2">
-
-  <mat-grid-tile *ngFor="let card of (cards$ | async)"
+  <mat-grid-tile *ngFor="let card of cards"
+                 [ngClass]="{'card-open': card.open}"
                  (click)="onCardClick(card)">
-    <div>
-      {{card.content}}
-      {{card.visible}}
+    <div class="card-content">
+      <ng-container *ngIf="card.open">
+        {{card.content}}
+      </ng-container>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

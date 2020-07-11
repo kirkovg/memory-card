@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CardsService} from '../../shared/services/cards.service';
 import {Card} from '../../shared/models/card';
-import {Observable} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {GameWinDialogComponent} from '../game-win-dialog/game-win-dialog.component';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-game-table',
@@ -10,17 +12,27 @@ import {Observable} from 'rxjs';
 })
 export class GameTableComponent implements OnInit {
 
-  cards$: Observable<Card[]>;
+  @Input() cards: Array<Card>;
 
-  constructor(private cardsService: CardsService) {
-
+  constructor(private cardsService: CardsService,
+              private dialogService: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.cards$ = this.cardsService.getCards();
+
+    this.cardsService.isFinishedStream()
+      .pipe(filter(finished => finished))
+      .subscribe(() => {
+        this.dialogService.open(GameWinDialogComponent, {
+          width: '500px',
+          data: {
+            attempts: this.cardsService.getNumberOfAttempts()
+          }
+        });
+    });
   }
 
   onCardClick(card: Card) {
-    card.visible = true;
+    this.cardsService.updateGameState(card);
   }
 }
