@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod-bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/stats.json"
+    "prod-bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/memory-card/stats-es2015.json"
   },
   "private": true,
   "dependencies": {
